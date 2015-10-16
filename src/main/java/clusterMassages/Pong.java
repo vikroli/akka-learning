@@ -1,4 +1,4 @@
-package common;
+package clusterMassages;
 
 public class Pong {
   public long msgId;

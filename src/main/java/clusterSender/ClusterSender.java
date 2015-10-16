@@ -1,16 +1,10 @@
-package sender;
+package clusterSender;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.actor.Props;
 import akka.actor.UntypedActor;
-import common.Ping;
-import common.Pong;
-import receiver.Receiver;
+import clusterMassages.Ping;
+import clusterMassages.Pong;
 
-public class Sender extends UntypedActor {
-  final ActorSystem system = ActorSystem.create("helloakka");
-  final ActorRef receiver = system.actorOf(Props.create(Receiver.class), "receiver");
+public class ClusterSender extends UntypedActor {
 
   @Override
   public void onReceive(Object message) throws Exception {

@@ -1,10 +1,10 @@
-package receiver;
+package clusterListener;
 
 import akka.actor.UntypedActor;
-import common.Ping;
-import common.Pong;
+import clusterMassages.Ping;
+import clusterMassages.Pong;
 
-public class Receiver extends UntypedActor {
+public class ClusterListener extends UntypedActor {
 
   @Override
   public void onReceive(Object msg) throws Exception {

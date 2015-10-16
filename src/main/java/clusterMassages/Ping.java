@@ -1,4 +1,4 @@
-package common;
+package clusterMassages;
 
 public class Ping {
   public static long seqId = 0l;
