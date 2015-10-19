@@ -27,7 +27,7 @@ public class ClusterSenderApp {
 
     ActorSystem system = ActorSystem.create("ClusterSystem", config);
 
-    final ActorRef sender = system.actorOf(Props.create(ClusterSender.class), "sendder");
+    final ActorRef sender = system.actorOf(Props.create(ClusterSender.class), "sender");
     final FiniteDuration interval = Duration.create(2, TimeUnit.SECONDS);
     final Timeout timeout = new Timeout(Duration.create(5, TimeUnit.SECONDS));
     final ExecutionContext ec = system.dispatcher();
