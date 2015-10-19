@@ -3,6 +3,9 @@ package clusterSender;
 import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
+import akka.cluster.Cluster;
+import akka.cluster.ClusterEvent;
+import akka.cluster.ClusterEvent.MemberEvent;
 import akka.routing.FromConfig;
 import clusterListener.ClusterListener;
 import clusterMassages.Ping;
@@ -11,6 +14,13 @@ import clusterMassages.Pong;
 public class ClusterSender extends UntypedActor {
   ActorRef listener = getContext()
       .actorOf(FromConfig.getInstance().props(Props.create(ClusterListener.class)), "listener");
+
+  Cluster cluster = Cluster.get(context().system());
+
+  {
+    cluster.subscribe(self(), MemberEvent.class, ClusterEvent.class);
+    System.err.println(cluster);
+  }
 
   @Override
   public void onReceive(Object message) throws Exception {
