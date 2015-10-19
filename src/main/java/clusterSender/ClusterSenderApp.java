@@ -20,9 +20,6 @@ import scala.concurrent.duration.FiniteDuration;
 public class ClusterSenderApp {
 
   public static void main(String[] args) {
-    // final ActorSystem system = ActorSystem.create("helloakka");
-    // final ActorRef sender = system.actorOf(Props.create(ClusterSender.class), "sender");
-    // Override the configuration of the port when specified as program argument
     final String port = args.length > 0 ? args[0] : "2551";
     final Config config = ConfigFactory.parseString("akka.remote.netty.tcp.port=" + port)
         .withFallback(ConfigFactory.parseString("akka.cluster.roles = [sender]"))
@@ -34,15 +31,18 @@ public class ClusterSenderApp {
     final FiniteDuration interval = Duration.create(2, TimeUnit.SECONDS);
     final Timeout timeout = new Timeout(Duration.create(5, TimeUnit.SECONDS));
     final ExecutionContext ec = system.dispatcher();
-    // final AtomicInteger counter = new AtomicInteger();
+
+
+    sender.tell(new Ping("HELLO"), sender);
     system.scheduler().schedule(interval, interval,
-        // () -> ask(sender, new Ping("hello" + counter.incrementAndGet()), timeout)
         () -> ask(sender, new Ping("hello"), timeout).onSuccess(new OnSuccess<Object>() {
           @Override
           public void onSuccess(Object result) {
             System.out.println(result);
           }
         }, ec), ec);
+
+    System.out.println("ClusterSenderApp.main()");
 
   }
 
