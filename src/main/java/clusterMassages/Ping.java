@@ -1,6 +1,10 @@
 package clusterMassages;
 
-public class Ping {
+import java.io.Serializable;
+
+public class Ping implements Serializable {
+
+  private static final long serialVersionUID = 7379971135052589365L;
   public static long seqId = 1l;
   public String msg;
   public long msgId;

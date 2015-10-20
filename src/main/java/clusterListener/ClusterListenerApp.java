@@ -12,7 +12,7 @@ public class ClusterListenerApp {
     Config config = ConfigFactory.load("listener");
     ActorSystem system = ActorSystem.create("ClusterSystem", config);
 
-    system.actorOf(Props.create(ClusterListener.class), "listener");
+    system.actorOf(Props.create(ClusterListener.class), "alistener");
 
   }
 }

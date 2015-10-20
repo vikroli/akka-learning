@@ -1,24 +1,20 @@
 package clusterSender;
 
 import akka.actor.ActorRef;
-import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.cluster.Cluster;
 import akka.cluster.ClusterEvent.MemberEvent;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-import clusterListener.ClusterListener;
+import akka.routing.FromConfig;
 import clusterMassages.Ping;
 import clusterMassages.Pong;
 
 public class ClusterSender extends UntypedActor {
 
-  ActorRef listener = getContext().actorOf(Props.create(ClusterListener.class), "listener");
+  ActorRef listener = getContext().actorOf(FromConfig.getInstance().props(), "senderRouter");
 
-  // ActorRef listener =
-  // getContext().actorOf(FromConfig.getInstance().props(Props.create(ClusterListener.class)),
-  // "listener");
-
+  // ActorRef listener = getContext().actorOf(FromConfig.getInstance().props(), "listener");
   LoggingAdapter log = Logging.getLogger(getContext().system(), this);
   Cluster cluster = Cluster.get(getContext().system());
 
@@ -34,10 +30,8 @@ public class ClusterSender extends UntypedActor {
     cluster.unsubscribe(getSelf());
   }
 
-
   @Override
   public void onReceive(Object message) throws Exception {
-    System.out.println("name: " + message.getClass().getName());
     try {
       if (message instanceof Ping) {
         System.out.println("Ping im Sender bekommen");
@@ -55,7 +49,5 @@ public class ClusterSender extends UntypedActor {
       // getSender().tell(new Status.Failure(e), getSelf());
       throw e;
     }
-
   }
-
 }

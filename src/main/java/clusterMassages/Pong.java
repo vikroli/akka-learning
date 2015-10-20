@@ -1,6 +1,10 @@
 package clusterMassages;
 
-public class Pong {
+import java.io.Serializable;
+
+public class Pong implements Serializable {
+
+  private static final long serialVersionUID = -4883187596839840069L;
   public long msgId;
   public String message;
 

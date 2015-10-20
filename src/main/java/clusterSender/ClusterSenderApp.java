@@ -28,8 +28,6 @@ public class ClusterSenderApp {
     final Timeout timeout = new Timeout(Duration.create(10, TimeUnit.SECONDS));
     final ExecutionContext ec = system.dispatcher();
 
-
-
     system.scheduler().schedule(interval, interval,
         () -> ask(sender, "hello", timeout).onSuccess(new OnSuccess<Object>() {
           @Override
@@ -37,11 +35,5 @@ public class ClusterSenderApp {
             System.out.println(result);
           }
         }, ec), ec);
-
-
-
-    System.out.println("ClusterSenderApp.main()");
-
   }
-
 }
