@@ -1,0 +1,5 @@
+---
+name: 'Stoycho Stanchev'
+email: 'sstanchev@applicata.bg'
+username: 'sstoycho'
+key_file: '~/.ssh/id_dsa_altix'  # Local path to your GitHub private key

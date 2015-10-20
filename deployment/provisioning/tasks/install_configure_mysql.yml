@@ -1,0 +1,35 @@
+---
+
+- name: Install MySql and its dependencies
+  action: apt pkg={{item}} state=installed
+  with_items: 
+     - mysql-server
+     - python-mysqldb
+      
+- name: Tune MySQL DB
+  lineinfile: dest=/etc/mysql/my.cnf state=present insertafter='\[mysqld\]' regexp='^max_connections = ' line='max_connections = 2000'
+  notify:
+    - restart mysql
+
+- name: Increase buffer pool
+  lineinfile: dest=/etc/mysql/my.cnf state=present insertafter='\[mysqld\]' regexp='^innodb_buffer_pool_size = ' line='innodb_buffer_pool_size = 512M'
+  notify:
+    - restart mysql
+
+- name: Set flush mode
+  lineinfile: dest=/etc/mysql/my.cnf state=present insertafter='\[mysqld\]' regexp='^innodb_flush_log_at_trx_commit = ' line='innodb_flush_log_at_trx_commit = 2'
+  notify:
+    - restart mysql
+
+- name: Bind to 0.0.0.0 to allow remote connections
+  lineinfile: dest=/etc/mysql/my.cnf state=present insertafter='\[mysqld\]' regexp='^bind-address' line='bind-address = 0.0.0.0'
+  notify:
+    - restart mysql
+
+- name: Make sure dbuser for pc_db administration exists
+  mysql_user: name={{ pc_db_user }} password={{ pc_db_password }} host=10.99.99.% priv=*.*:ALL state=present
+  when: inventory_hostname | search("pc_db")
+  
+- name: Make sure dbuser for acbe_ki administration exists
+  mysql_user: name={{ acbe_ki_db_user }} password={{ acbe_ki_db_password }} host=10.99.99.0/255.255.255.0 priv=*.*:ALL state=present
+  when: inventory_hostname | search("acbe_ki")  

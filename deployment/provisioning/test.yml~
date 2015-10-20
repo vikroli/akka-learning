@@ -1,0 +1,18 @@
+---
+
+- hosts: test
+  remote_user: vagrant
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - vars/maven_vars.yml
+    - vars/github_vars.yml
+    - vars/esc_vars.yml
+    
+  tasks:
+    - apt: update_cache=yes
+    - include: tasks/oracle-jdk8.yml
+    - include: tasks/maven.yml
+    - include: tasks/github.yml
+
+

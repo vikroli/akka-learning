@@ -1,0 +1,64 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config| 
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id,
+                  "--groups", "/akka-test",
+                  "--memory", "1024"] 
+  end 
+end 
+
+# Development VMs 
+Vagrant.configure("2") do |config|
+  config.vm.define "sender1" do |test|
+    test.vm.box = "precise64"
+    test.vm.network :private_network, ip: "10.99.99.20"
+    test.vm.hostname = "demo-sender1"
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "demo-sender1"
+    end
+  end
+  config.vm.define "sender2" do |test|
+    test.vm.box = "precise64"
+    test.vm.network :private_network, ip: "10.99.99.21"
+    test.vm.hostname = "demo-sender2"
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "demo-sender2"
+    end
+  end
+  config.vm.define "listener1" do |test|
+    test.vm.box = "precise64"
+    test.vm.network :private_network, ip: "10.99.99.23"
+    test.vm.hostname = "demo-listener1"
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "demo-listener1"
+    end
+  end
+  config.vm.define "listener2" do |test|
+    test.vm.box = "precise64"
+    test.vm.network :private_network, ip: "10.99.99.24"
+    test.vm.hostname = "demo-listener2"
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "demo-listener1"
+    end
+  end
+end
+Vagrant.configure("2") do |config|
+  config.vm.provision :shell do |shell|
+    shell.inline = "touch $1 && chmod 0440 $1 && echo $2 > $1"
+    shell.args = %q{/etc/sudoers.d/root_ssh_agent "Defaults    env_keep += \"SSH_AUTH_SOCK\""}
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.groups = {
+      "test" => ["sender1", "sender2", "listener1", "listener2"],
+      "all_groups:children" => ["test"]
+    }
+    ansible.host_key_checking = false
+    ansible.sudo = true
+    ansible.sudo_user = "vagrant"
+    ansible.raw_arguments = "-u vagrant --private-key ~/.vagrant.d/insecure_private_key"
+    ansible.playbook = "provisioning/playbook.yml"
+  end
+end

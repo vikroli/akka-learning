@@ -1,0 +1,5 @@
+---
+name: 'Viktoria Krolikowski'
+email: 'viktoria.krolikowski@emnify.com'
+username: 'vikroli'
+key_file: '~/.ssh/id_rsa'  # Local path to your GitHub private key

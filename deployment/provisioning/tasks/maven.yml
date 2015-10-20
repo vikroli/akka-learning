@@ -1,0 +1,30 @@
+---
+
+- name: Download Maven
+  action: command
+    creates={{ maven_install_dir }}
+    wget {{ maven_mirror }}/maven-3/{{ maven_version }}/binaries/{{ maven_redis_filename }} -O /tmp/{{ maven_redis_filename }}
+
+- name: Unpack Maven3
+  action: command 
+    creates={{ maven_install_dir }} 
+    chdir=/opt 
+    tar zxf /tmp/{{ maven_redis_filename }}
+
+- name: Create Maven3 directory link
+  file: 
+    path=/opt/maven 
+    src=/opt/apache-maven-{{ maven_version }} 
+    state=link
+
+- name: Set mvn link
+  action: command 
+    update-alternatives --install {{ maven_bin_path }} mvn {{ maven_install_dir }}/bin/mvn 1
+
+- name: Remove Maven3 archive
+  file: 
+    path=/tmp/{{ maven_redis_filename }} 
+    state=absent
+
+
+

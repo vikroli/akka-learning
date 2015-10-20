@@ -1,0 +1,64 @@
+---
+
+- name: Copy release tarballs to VB host
+  sudo: no
+  fetch:
+     src=/home/{{ username }}/ESC/{{ item }}/target/esc-{{ item }}-{{ esc_version }}.tar.gz
+     dest={{ esc_release_dir }}/
+     flat=yes
+  with_items:
+     - spc-backend
+     - cmap-router
+     - hlr
+     - ns-proxy
+
+- name: Copy VLR EMU tarball to VB host
+  sudo: no
+  fetch:
+     src=/home/{{ username }}/ESC/esc-test/target/esc-test-{{ esc_version }}.tar.gz
+     dest={{ esc_release_dir }}/
+     flat=yes
+
+- name: Create pcdb sql script
+  mysql_db: name=esc state=dump target=/tmp/esc-pcdb.sql
+
+- name: Copy pcdb sql script to VB host
+  sudo: no
+  fetch:
+     src=/tmp/esc-pcdb.sql
+     dest={{ esc_release_dir }}/
+     flat=yes
+
+- name: Create esc-runtime pcdb sql script
+  mysql_db: name=esc-runtime state=dump target=/tmp/esc-runtime-pcdb.sql
+
+- name: Copy pcdb sql script to VB host
+  sudo: no
+  fetch:
+     src=/tmp/esc-runtime-pcdb.sql
+     dest={{ esc_release_dir }}/
+     flat=yes
+
+- name: Copy AuC tarball to VB host
+  sudo: no
+  fetch:
+     src=/home/{{ username }}/ESC/auc/target/esc-auc-backend-{{ esc_version }}.tar.gz
+     dest={{ esc_release_dir }}/
+     flat=yes
+
+- name: Create acbe_ki sql script
+  mysql_db: name=esc-auc state=dump target=/tmp/esc-auc.sql
+
+- name: Copy pcdb sql script to VB host
+  sudo: no
+  fetch:
+     src=/tmp/esc-auc.sql
+     dest={{ esc_release_dir }}/
+     flat=yes
+
+- name: Copy spc-frontend to VB host
+  sudo: no
+  fetch:
+     src=/home/{{ username }}/ESC/spc/target/esc-spc-frontend-{{ esc_version }}-dist.zip
+     dest={{ esc_release_dir }}/
+     flat=yes

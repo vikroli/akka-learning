@@ -1,0 +1,39 @@
+---
+
+- hosts: dev
+  remote_user: vagrant
+  sudo: yes
+  sudo_user: root
+  vars_files:
+    - vars/maven_vars.yml
+    - ~/.ansible/github_vars.yml
+    - vars/esc_vars.yml
+    
+  tasks:
+    - apt: update_cache=yes
+    - name: Install MySQL and lksctp-tools
+      action: apt pkg={{item}} state=installed
+      with_items:
+       - mysql-server
+       - lksctp-tools
+       - mysql-client
+       - python-mysqldb
+       - unzip
+    - name: MySQL | Ensure MySQL is running
+      service:
+       name: mysql
+       state: started
+    
+    - name: Create Dev user
+      user: name={{ username }} shell=/bin/bash comment="{{ name }}" groups=admin,sudo
+       
+    - name: Create ESC user
+      user: name=esc shell=/bin/bash comment="ESC user" groups=admin,sudo
+
+    - include: tasks/github.yml
+    - include: tasks/esc_git_clone_pull.yml        
+    - include: tasks/oracle-jdk8.yml
+    - include: tasks/maven.yml
+    - include: tasks/compile_test_esc.yml
+    
+    - include: tasks/create_release.yml

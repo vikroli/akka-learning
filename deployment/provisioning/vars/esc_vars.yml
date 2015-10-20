@@ -1,0 +1,45 @@
+---
+
+esc_repo_url: "ssh://git@github.com/EMnify/ESC.git"
+esc_install_dir: "/opt/esc"
+esc_version: "1.6.1"
+
+esc_release_dir: "~/.ansible/tmp"
+
+# Akka cluster vars
+seed_nodes: '[\"akka.tcp://esc@10.99.99.140:{{ spc_backend_port }}\"]'
+
+     # Spc backend vars
+spc_backend_port: 2551
+
+     # HLR vars
+hlr_ip: "10.99.99.160"
+hlr_port: 0
+auc_backend_paths: '[\"akka.tcp://esc@{{ auc_ip }}:{{ auc_port }}/user/auc\"]'
+
+     # AuC vars
+auc_ip: "10.99.99.130"
+auc_port: "2580"
+
+
+
+     # Pc DB vars
+pc_db_ip: "10.99.99.170"
+pc_db_user: "esc"
+pc_db_password: "esc"
+
+     # acbe_ki DB vars
+acbe_ki_ip: "10.99.99.171"
+acbe_ki_db_user: "esc"
+acbe_ki_db_password: "esc"
+
+#CMap router vars
+map_router_port: 0
+
+# SS7 vars
+map_router_sctp_ip: "10.99.99.150"
+map_router_sctp_port: 2345
+stp_sctp_ip: "10.99.99.100"
+stp_sctp_port: 3434
+esc_pc: 1001
+remote_pc: 2001

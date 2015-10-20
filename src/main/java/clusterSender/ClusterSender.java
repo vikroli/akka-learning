@@ -4,23 +4,36 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 import akka.cluster.Cluster;
-import akka.cluster.ClusterEvent;
 import akka.cluster.ClusterEvent.MemberEvent;
-import akka.routing.FromConfig;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 import clusterListener.ClusterListener;
 import clusterMassages.Ping;
 import clusterMassages.Pong;
 
 public class ClusterSender extends UntypedActor {
-  ActorRef listener = getContext()
-      .actorOf(FromConfig.getInstance().props(Props.create(ClusterListener.class)), "listener");
 
-  Cluster cluster = Cluster.get(context().system());
+  ActorRef listener = getContext().actorOf(Props.create(ClusterListener.class), "listener");
 
-  {
-    cluster.subscribe(self(), MemberEvent.class, ClusterEvent.class);
-    System.err.println(cluster);
+  // ActorRef listener =
+  // getContext().actorOf(FromConfig.getInstance().props(Props.create(ClusterListener.class)),
+  // "listener");
+
+  LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+  Cluster cluster = Cluster.get(getContext().system());
+
+  // subscribe to cluster
+  @Override
+  public void preStart() {
+    cluster.subscribe(getSelf(), MemberEvent.class);
   }
+
+  // re-subscribe when restart
+  @Override
+  public void postStop() {
+    cluster.unsubscribe(getSelf());
+  }
+
 
   @Override
   public void onReceive(Object message) throws Exception {

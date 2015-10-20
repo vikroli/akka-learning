@@ -1,0 +1,12 @@
+---
+
+- name: Build ESC and run unit and integration tests
+  sudo: yes
+  sudo_user: "{{ username }}"
+  action: command
+      chdir=/home/{{ username }}/ESC
+      /usr/bin/mvn clean install -Dskip-japi -l mvn.log~
+  environment:
+      MAVEN_OPTS: "-Xmx1024m"         
+  
+- debug: msg="ESC Unit and Integration test executed. Log file writen:/home/esc/ESC/mvn.log~"  

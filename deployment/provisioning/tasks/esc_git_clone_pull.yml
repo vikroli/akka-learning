@@ -1,0 +1,47 @@
+---
+
+- name: Clone ESC repo if not cloned
+  sudo: no
+  action: command
+      creates=/home/{{ username }}/ESC
+      sudo /usr/bin/git clone {{ esc_repo_url }} /home/{{ username }}/ESC
+
+- name: Pull ESC repo
+  sudo: no
+  action: command
+      chdir=/home/{{ username }}/ESC
+      sudo /usr/bin/git pull
+  register: result
+  
+- name: Set permissions
+  file:
+     path='/home/{{ username }}/ESC'
+     state=directory
+     owner={{ username }}
+     group={{ username }}
+     recurse=yes  
+
+- debug: var=result.stdout_lines      
+- name: Set git user.name
+  sudo: yes
+  sudo_user: "{{ username }}"
+  action: command
+      chdir=/home/{{ username }}/ESC 
+      git config user.name "{{ name }}"
+     
+- name: Set git user.email
+  sudo: yes
+  sudo_user: "{{ username }}"
+  action: command
+      chdir=/home/{{ username }}/ESC 
+      git config user.email "{{ email }}"
+      
+- name: Copy JCE files to VM host
+  sudo: no
+  fetch: 
+     src=/home/{{ username }}/ESC/deployment/repo/java/UnlimitedJCEPolicyJDK8/{{ item }}.jar
+     dest={{ esc_release_dir }}/
+     flat=yes
+  with_items:
+     - local_policy
+     - US_export_policy

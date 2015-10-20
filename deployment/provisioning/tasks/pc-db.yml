@@ -1,0 +1,25 @@
+---
+
+- name: Create esc pc_db
+  mysql_db: name=esc state=present
+  
+- name: Create runtime db
+  mysql_db: name=esc-runtime state=present  
+    
+- name: Copy pc_db schema
+  copy: src={{ esc_release_dir }}/esc-pcdb.sql dest=/tmp
+    
+- name: Import pc_db schema  
+  mysql_db: 
+         name=esc 
+         state=import 
+         target=/tmp/esc-pcdb.sql
+
+- name: Copy runtime schema
+  copy: src={{ esc_release_dir }}/esc-runtime-pcdb.sql dest=/tmp
+    
+- name: Import runtime schema  
+  mysql_db: 
+         name=esc-runtime 
+         state=import 
+         target=/tmp/esc-runtime-pcdb.sql

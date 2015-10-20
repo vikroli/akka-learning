@@ -1,0 +1,46 @@
+---
+- name: Create ~/.ssh directory
+  file:
+      path=/home/{{ username }}/.ssh
+      owner={{ username }}
+      group={{ username }}
+      mode=0700
+      state=directory
+
+- name: Copy github private key
+  copy: 
+      src={{ key_file }} 
+      dest=/home/{{ username }}/.ssh/
+      owner={{ username }}
+      group={{ username }}
+      mode=0600
+
+- name: Add github private key to config file
+  sudo: yes
+  sudo_user: "{{ username }}"
+  lineinfile:
+      dest=~/.ssh/config
+      create=yes
+      state=present
+      regexp={{ item.key }}
+      line="{{ item.key }} {{ item.value }}"
+      insertafter=EOF
+  with_items:
+      - { key: 'Host', value: 'github.com' }
+      - { key: 'User', value: 'git' }
+      - { key: 'IdentityFile', value: '{{ key_file }}' }
+      - { key: 'StrictHostKeyChecking', value: 'no' }
+      - { key: 'UserKnownHostsFile=', value: '/dev/null' }
+      
+- name: Change ssh config for sudo user
+  lineinfile:
+      dest=~/.ssh/config
+      create=yes
+      state=present
+      regexp={{ item.key }}
+      line="{{ item.key }} {{ item.value }}"
+      insertafter=EOF
+  with_items:
+      - { key: 'Host', value: 'github.com' }
+      - { key: 'StrictHostKeyChecking', value: 'no' }
+      - { key: 'UserKnownHostsFile=', value: '/dev/null' }      
