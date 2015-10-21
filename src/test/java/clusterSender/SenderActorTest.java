@@ -11,7 +11,6 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.actor.UnhandledMessage;
 import akka.testkit.JavaTestKit;
-import clusterMassages.Ping;
 import clusterMassages.Pong;
 
 public class SenderActorTest {
@@ -54,8 +53,6 @@ public class SenderActorTest {
         final ActorRef service = senderSystem.actorOf(Props.create(ClusterSender.class), "sender");
         final ActorRef probe = getRef();
         service.tell("Ping", probe);
-        expectNoMsg();
-        service.tell(new Ping("Ping"), probe);
         expectNoMsg();
         service.tell(new Pong(1l, "Pong"), probe);
         expectNoMsg();

@@ -28,6 +28,7 @@ public class ClusterListener extends UntypedActor {
   @Override
   public void onReceive(Object msg) throws Exception {
     if (msg instanceof Ping) {
+      System.out.println("Ping bekommen, msgId=" + ((Ping) msg).getMsgId());
       Pong response = new Pong(((Ping) msg).getMsgId(), "Pong");
       getSender().tell(response, getSelf());
     } else

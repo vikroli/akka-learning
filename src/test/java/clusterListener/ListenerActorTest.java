@@ -40,7 +40,7 @@ public class ListenerActorTest {
       {
         final ActorRef service = system.actorOf(Props.create(ClusterListener.class), "listener");
         final ActorRef probe = getRef();
-        Ping msg = new Ping("Ping");
+        Ping msg = new Ping("Ping", 1l);
         service.tell(msg, probe);
         Pong p = expectMsgClass(Pong.class);
         Assert.assertEquals(new Pong(1l, "Pong"), p);

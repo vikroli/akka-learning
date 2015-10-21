@@ -12,7 +12,10 @@ import clusterMassages.Pong;
 
 public class ClusterSender extends UntypedActor {
 
-  ActorRef listener = getContext().actorOf(FromConfig.getInstance().props(), "senderRouter");
+  ActorRef listener = getContext().actorOf(FromConfig.getInstance().props(), "listenerRouter");
+  // .actorOf(FromConfig.getInstance().props(Props.create(ClusterListener.class)),
+  // "listenerRouter");
+  public static long seqId = 1l;
 
   // ActorRef listener = getContext().actorOf(FromConfig.getInstance().props(), "listener");
   LoggingAdapter log = Logging.getLogger(getContext().system(), this);
@@ -33,16 +36,14 @@ public class ClusterSender extends UntypedActor {
   @Override
   public void onReceive(Object message) throws Exception {
     try {
-      if (message instanceof Ping) {
-        System.out.println("Ping im Sender bekommen");
-        listener.tell(message, getSelf());
-      } else if (message instanceof String) {
-        System.out.println("String im Sender bekommen");
-        listener.tell(new Ping((String) message), getSelf());
+      if (message instanceof String) {
+        Ping p = new Ping((String) message, seqId++);
+        System.out.println("String bekommen, msgId="+p.getMsgId());
+        listener.tell(p, getSelf());
       } else if (message instanceof Pong) {
-        System.out.println("Pong im Sender bekommen: " + ((Pong) message).toString());
+        System.out.println("Pong bekommen, msgId= " + ((Pong) message).getMsgId());
       } else {
-        System.out.println("unhandled im Sender bekommen");
+        System.out.println("unhandled bekommen, class=" + message.getClass().getName());
         unhandled(message);
       }
     } catch (Exception e) {
