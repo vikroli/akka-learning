@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
     test.vm.network :private_network, ip: "10.99.99.24"
     test.vm.hostname = "demo-listener2"
     config.vm.provider :virtualbox do |vb|
-      vb.name = "demo-listener1"
+      vb.name = "demo-listener2"
     end
   end
 end

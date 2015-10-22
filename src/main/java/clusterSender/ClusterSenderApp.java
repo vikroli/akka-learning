@@ -19,6 +19,7 @@ import scala.concurrent.duration.FiniteDuration;
 public class ClusterSenderApp {
 
   public static void main(String[] args) {
+
     Config config = ConfigFactory.load("sender");
     ActorSystem system = ActorSystem.create("ClusterSystem", config);
 
@@ -27,6 +28,8 @@ public class ClusterSenderApp {
     final FiniteDuration interval = Duration.create(2, TimeUnit.SECONDS);
     final Timeout timeout = new Timeout(Duration.create(10, TimeUnit.SECONDS));
     final ExecutionContext ec = system.dispatcher();
+
+    sender.tell("hello", sender);
 
     system.scheduler().schedule(interval, interval,
         () -> ask(sender, "hello", timeout).onSuccess(new OnSuccess<Object>() {

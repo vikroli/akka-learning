@@ -1,0 +1,30 @@
+2015-10-22  INFO [ClusterSystem-akka.actor.default-dispatcher-2] a.e.s.Slf4jLogger - Slf4jLogger started
+2015-10-22 08:51:04.229UTC INFO [ClusterSystem-akka.actor.default-dispatcher-2] Remoting - Starting remoting
+2015-10-22 08:51:04.386UTC INFO [ClusterSystem-akka.actor.default-dispatcher-2] Remoting - Remoting started; listening on addresses :[akka.tcp://ClusterSystem@127.0.0.1:2552]
+2015-10-22 08:51:04.411UTC INFO [ClusterSystem-akka.actor.default-dispatcher-2] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:2552] - Starting up...
+2015-10-22 08:51:04.525UTC INFO [ClusterSystem-akka.actor.default-dispatcher-3] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:2552] - Registered cluster JMX MBean [akka:type=Cluster]
+2015-10-22 08:51:04.527UTC INFO [ClusterSystem-akka.actor.default-dispatcher-3] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:2552] - Started up successfully
+2015-10-22 08:51:04.552UTC INFO [ClusterSystem-akka.actor.default-dispatcher-5] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:2552] - Node [akka.tcp://ClusterSystem@127.0.0.1:2552] is JOINING, roles [sender]
+2015-10-22 08:51:04.563UTC INFO [ClusterSystem-akka.actor.default-dispatcher-2] c.ClusterSender - jkjh
+2015-10-22 08:51:04.718UTC INFO [ClusterSystem-akka.actor.default-dispatcher-2] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:2552] - Metrics will be retreived from MBeans, and may be incorrect on some platforms. To increase metric accuracy add the 'sigar.jar' to the classpath and the appropriate platform-specific native libary to 'java.library.path'. Reason: java.lang.IllegalArgumentException: java.lang.UnsatisfiedLinkError: org.hyperic.sigar.Sigar.getPid()J
+2015-10-22 08:51:04.721UTC INFO [ClusterSystem-akka.actor.default-dispatcher-2] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:2552] - Metrics collection has started successfully
+2015-10-22 08:51:04.723UTC INFO [ClusterSystem-akka.actor.default-dispatcher-16] c.ClusterSender - Ping command received, msgId=1
+2015-10-22 08:51:04.732UTC INFO [ClusterSystem-akka.actor.default-dispatcher-16] c.ClusterSender - Received unhandled, class=akka.cluster.ClusterEvent$CurrentClusterState
+2015-10-22 08:51:04.740UTC INFO [ClusterSystem-akka.actor.default-dispatcher-16] a.r.RemoteActorRefProvider$RemoteDeadLetterActorRef - Message [clusterMassages.Ping] from Actor[akka://ClusterSystem/user/sender#1383990871] to Actor[akka://ClusterSystem/deadLetters] was not delivered. [1] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2015-10-22  INFO [ClusterSystem-akka.actor.default-dispatcher-3] a.e.s.Slf4jLogger - Slf4jLogger started
+2015-10-22 08:51:04.828UTC INFO [ClusterSystem-akka.actor.default-dispatcher-4] Remoting - Starting remoting
+2015-10-22 08:51:04.838UTC INFO [ClusterSystem-akka.actor.default-dispatcher-3] Remoting - Remoting started; listening on addresses :[akka.tcp://ClusterSystem@127.0.0.1:50185]
+2015-10-22 08:51:04.838UTC INFO [ClusterSystem-akka.actor.default-dispatcher-3] Remoting - Remoting now listens on addresses: [akka.tcp://ClusterSystem@127.0.0.1:50185]
+2015-10-22 08:51:04.839UTC INFO [ClusterSystem-akka.actor.default-dispatcher-3] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:50185] - Starting up...
+2015-10-22 08:51:04.843UTC INFO [ClusterSystem-akka.actor.default-dispatcher-15] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:50185] - Started up successfully
+2015-10-22 08:51:04.850UTC INFO [ClusterSystem-akka.actor.default-dispatcher-15] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:50185] - Metrics will be retreived from MBeans, and may be incorrect on some platforms. To increase metric accuracy add the 'sigar.jar' to the classpath and the appropriate platform-specific native libary to 'java.library.path'. Reason: java.lang.IllegalArgumentException: java.lang.UnsatisfiedLinkError: org.hyperic.sigar.Sigar.getPid()J
+2015-10-22 08:51:04.850UTC INFO [ClusterSystem-akka.actor.default-dispatcher-15] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:50185] - Metrics collection has started successfully
+2015-10-22 08:51:05.080UTC INFO [ClusterSystem-akka.actor.default-dispatcher-4] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:2552] - Node [akka.tcp://ClusterSystem@127.0.0.1:50185] is JOINING, roles [listener]
+2015-10-22 08:51:05.230UTC INFO [ClusterSystem-akka.actor.default-dispatcher-20] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:50185] - Welcome from [akka.tcp://ClusterSystem@127.0.0.1:2552]
+2015-10-22 08:51:05.560UTC INFO [ClusterSystem-akka.actor.default-dispatcher-17] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:2552] - Leader is moving node [akka.tcp://ClusterSystem@127.0.0.1:2552] to [Up]
+2015-10-22 08:51:05.565UTC INFO [ClusterSystem-akka.actor.default-dispatcher-17] Cluster(akka://ClusterSystem) - Cluster Node [akka.tcp://ClusterSystem@127.0.0.1:2552] - Leader is moving node [akka.tcp://ClusterSystem@127.0.0.1:50185] to [Up]
+2015-10-22 08:51:05.569UTC INFO [ClusterSystem-akka.actor.default-dispatcher-16] c.ClusterSender - Received unhandled, class=akka.cluster.ClusterEvent$MemberUp
+2015-10-22 08:51:05.571UTC INFO [ClusterSystem-akka.actor.default-dispatcher-21] c.ClusterSender - Received unhandled, class=akka.cluster.ClusterEvent$MemberUp
+2015-10-22 08:51:06.815UTC INFO [ClusterSystem-akka.actor.default-dispatcher-18] c.ClusterSender - Ping command received, msgId=2
+2015-10-22 08:51:06.836UTC INFO [ClusterSystem-akka.actor.default-dispatcher-19] c.ClusterListener - Received a Ping with msgId=2
+2015-10-22 08:51:06.842UTC INFO [ClusterSystem-akka.actor.default-dispatcher-4] c.ClusterSender - Recieved a Pong with msgId=2

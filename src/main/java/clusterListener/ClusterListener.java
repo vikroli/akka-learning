@@ -9,9 +9,8 @@ import clusterMassages.Ping;
 import clusterMassages.Pong;
 
 public class ClusterListener extends UntypedActor {
-
-  LoggingAdapter log = Logging.getLogger(getContext().system(), this);
-  Cluster cluster = Cluster.get(getContext().system());
+  private LoggingAdapter log = Logging.getLogger(getContext().system(), this);
+  private Cluster cluster = Cluster.get(getContext().system());
 
   // subscribe to cluster
   @Override
@@ -28,11 +27,10 @@ public class ClusterListener extends UntypedActor {
   @Override
   public void onReceive(Object msg) throws Exception {
     if (msg instanceof Ping) {
-      System.out.println("Ping bekommen, msgId=" + ((Ping) msg).getMsgId());
+      log.info("Received a Ping with msgId=" + ((Ping) msg).getMsgId());
       Pong response = new Pong(((Ping) msg).getMsgId(), "Pong");
       getSender().tell(response, getSelf());
     } else
       unhandled(msg);
   }
-
 }

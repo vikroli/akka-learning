@@ -1,4 +1,4 @@
-package clusterSender;
+package clusterTest;
 
 import com.typesafe.config.ConfigFactory;
 
@@ -12,6 +12,7 @@ import akka.actor.Props;
 import akka.actor.UnhandledMessage;
 import akka.testkit.JavaTestKit;
 import clusterMassages.Pong;
+import clusterSender.ClusterSender;
 
 public class SenderActorTest {
 
