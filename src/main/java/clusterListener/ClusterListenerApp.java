@@ -11,7 +11,6 @@ public class ClusterListenerApp {
   public static void main(String[] args) {
     Config config = ConfigFactory.load("listener");
     ActorSystem system = ActorSystem.create("ClusterSystem", config);
-
     system.actorOf(Props.create(ClusterListener.class), "listener");
   }
 }

@@ -22,14 +22,11 @@ public class ClusterSenderApp {
 
     Config config = ConfigFactory.load("sender");
     ActorSystem system = ActorSystem.create("ClusterSystem", config);
-
     ActorRef sender = system.actorOf(Props.create(ClusterSender.class), "sender");
 
     final FiniteDuration interval = Duration.create(2, TimeUnit.SECONDS);
     final Timeout timeout = new Timeout(Duration.create(10, TimeUnit.SECONDS));
     final ExecutionContext ec = system.dispatcher();
-
-    sender.tell("hello", sender);
 
     system.scheduler().schedule(interval, interval,
         () -> ask(sender, "hello", timeout).onSuccess(new OnSuccess<Object>() {

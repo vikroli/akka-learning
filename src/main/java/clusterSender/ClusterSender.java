@@ -15,15 +15,12 @@ public class ClusterSender extends UntypedActor {
   private ActorRef listener =
       getContext().actorOf(FromConfig.getInstance().props(), "listenerRouter");
   public static long seqId = 1l;
-
-
   private LoggingAdapter log = Logging.getLogger(getContext().system(), this);
   private Cluster cluster = Cluster.get(getContext().system());
 
   // subscribe to cluster
   @Override
   public void preStart() {
-    log.info("jkjh");
     cluster.subscribe(getSelf(), MemberEvent.class);
   }
 

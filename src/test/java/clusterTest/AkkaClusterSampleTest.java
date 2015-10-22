@@ -30,13 +30,13 @@ public class AkkaClusterSampleTest {
     new JavaTestKit(system) {
       {
         assertTrue("Error: Ping command not received by Sender",
-            TestUtils.waitLog("Ping command received, msgId=2", 3000));
+            TestUtils.waitLog("Ping command received, msgId=1", 3000));
 
         assertTrue("Error: Ping message is not received by Listener",
-            TestUtils.waitLog("Received a Ping with msgId=2", 3000));
+            TestUtils.waitLog("Received a Ping with msgId=1", 3000));
 
         assertTrue("Error: Pong message is not received by Sender",
-            TestUtils.waitLog("Recieved a Pong with msgId=2", 3000));
+            TestUtils.waitLog("Recieved a Pong with msgId=1", 3000));
       }
     };
   }

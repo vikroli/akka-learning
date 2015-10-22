@@ -2,9 +2,7 @@ package clusterMassages;
 
 import java.io.Serializable;
 
-import akka.routing.ConsistentHashingRouter.ConsistentHashable;
-
-public class Ping implements Serializable, ConsistentHashable {
+public class Ping implements Serializable {
 
   private static final long serialVersionUID = 7379971135052589365L;
   public String msg;
@@ -30,11 +28,6 @@ public class Ping implements Serializable, ConsistentHashable {
 
   public void setMsgId(long msgId) {
     this.msgId = msgId;
-  }
-
-  @Override
-  public Object consistentHashKey() {
-    return msg;
   }
 
   @Override
