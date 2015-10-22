@@ -1,4 +1,4 @@
-package clusterTest;
+package clusterIntegrationTest;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,7 +14,7 @@ import akka.testkit.JavaTestKit;
 import clusterListener.ClusterListenerApp;
 import clusterSender.ClusterSenderApp;
 
-public class AkkaClusterSampleTest {
+public class SenderIntegrationTest {
   protected static ActorSystem system;
 
   @BeforeClass
